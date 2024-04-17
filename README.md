@@ -5,15 +5,17 @@ March 22, 2005
 
 # Introduction
 
-The original repo is located at
+The original repo is located
 [here](https://github.com/jurikuronen/PANGWES). This repo provides a
 quick and easy interface for installation and testing.
 
 # Installation
 
 This package will soon be available through bioconda, in the meantime,
-you can build and install it using conda. Currently, this package works
-on linux and mac osx-64 systems. Please follow these steps:
+you can build and install it locally using conda. Currently, this
+package works on linux and mac osx-64 systems.
+
+Please follow these steps:
 
 1.  If you haven’t already, first, you will need to install
     [conda](https://docs.anaconda.com/free/miniconda/miniconda-install/).
@@ -32,7 +34,7 @@ on linux and mac osx-64 systems. Please follow these steps:
     git clone https://github.com/Sudaraka88/pangwes_conda
 
 > Alternatively, you can click the \<\>Code button at the top right and
-> click Download ZIP, afterwards, unzip the repo.
+> click Download ZIP. Afterwards, unzip the repo.
 
 4.  Build the repo
 
@@ -59,8 +61,8 @@ which contains 337 *E. faecalis* assemblies. **Uncompress** the
 downloaded file and move the **efcls_assemblies** folder into your
 working directory.
 
-1.  Open a terminal in your working directory and build a list of these
-    assemblies using the following command.
+1.  Open a terminal in your working directory and populate a list of
+    these assemblies using the following command.
 
 <!-- -->
 
@@ -109,5 +111,5 @@ working directory.
 
     gwes_plot.r efcls.ud_sgg_0_based 
 
-If all went to plan, this should generate the following figure:
+If all went to plan, this example should generate the following figure:
 ![](supp/gwes_plot.png)
