@@ -80,7 +80,11 @@ working directory.
 
 > You can provide an optional work directory to store temporary files
 > using –work-dir <your directory> and adjust the number of threads
-> depending on your system resources.
+> depending on your system resources. If you run into the error “Cannot
+> open temporary file ./kmc_01021.bin”, run `ulimit -n 2048` in the
+> terminal. See
+> [here](https://github.com/COMBINE-lab/cuttlefish/issues/29#issuecomment-1491083656)
+> and [here](https://github.com/refresh-bio/KMC/issues/140).
 
 4.  Prase the built gfa1 file
 
