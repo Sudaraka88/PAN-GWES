@@ -1,11 +1,9 @@
 PANGWES Conda Installation
 ================
-SM
-March 22, 2005
 
 # Introduction
 
-The original repo is located
+The original PANGWES repo is located
 [here](https://github.com/jurikuronen/PANGWES). This repo provides a
 quick and easy interface for installation and testing.
 
