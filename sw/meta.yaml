@@ -1,0 +1,17 @@
+package:
+  name: pangwes
+  version: "0.1"
+
+source:
+  path: pangwes
+
+requirements:
+  script:
+    - export CC=$CONDA_PREFIX/bin/g++  # Set the compiler path
+  build:
+    - gxx
+    - make
+  run:
+    - cuttlefish
+    - spydrpick
+    - r-base
