@@ -6,10 +6,8 @@ source:
   path: pangwes
 
 requirements:
-  script:
-    - export CC=$CONDA_PREFIX/bin/g++  # Set the compiler path
   build:
-    - gxx
+    - {{ compiler('cxx') }}
     - make
   run:
     - cuttlefish

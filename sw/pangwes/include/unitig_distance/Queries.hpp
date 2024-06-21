@@ -32,7 +32,7 @@ public:
         m_largest_v = std::max(m_largest_v, std::max(v, w));
     }
     void add_score(real_t score) { m_scores.emplace_back(score); }
-    void add_flag(bool flag) { m_flags.emplace_back(flag); }
+    void add_flag(bool flag) { m_flags.push_back(flag); }
     void add_distance(int_t distance, int_t count = 1) { m_distances.emplace_back(distance, count); }
 
     bool extended_format() const { return m_scores.size() > 0; }

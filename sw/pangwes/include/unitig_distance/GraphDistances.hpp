@@ -67,7 +67,7 @@ private:
     const Graph& m_graph;
     const Timer& m_timer;
 
-    bool m_verbose;
+    // bool m_verbose;
     
     std::vector<std::pair<int_t, real_t>> get_sources(int_t v) {
         std::vector<std::pair<int_t, real_t>> sources;
