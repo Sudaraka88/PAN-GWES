@@ -29,7 +29,7 @@ Please follow these steps:
 
 <!-- -->
 
-    git clone https://github.com/Sudaraka88/pangwes_conda
+    git clone https://github.com/Sudaraka88/PAN-GWES
 
 > Alternatively, you can click the \<\>Code button at the top right and
 > click Download ZIP. Afterwards, unzip the repo.
@@ -38,7 +38,7 @@ Please follow these steps:
 
 <!-- -->
 
-    cd pangwes_conda 
+    cd PAN-GWES
     conda build -c bioconda -c conda-forge sw
 
 5.  Create a new environment and install the package
@@ -54,10 +54,10 @@ Please follow these steps:
 
 There is a sample dataset available
 [here](https://uio-my.sharepoint.com/:u:/g/personal/sudarakm_uio_no/ET0J10TDy9VCiIS8ymLFYxYBrN0IqxsE83iJzUl-9_SWpQ?e=YpKoPg).
-This compressed file contains a single folder called *efcls_assemblies*,
-which contains 337 *E. faecalis* assemblies. **Uncompress** the
-downloaded file and move the **efcls_assemblies** folder into your
-working directory.
+This compressed file contains a single folder called
+**efcls_assemblies**, which contains 337 *E. faecalis* assemblies.
+**Uncompress** the downloaded file and move the **efcls_assemblies**
+folder into your working directory.
 
 1.  Open a terminal in your working directory and populate a list of
     these assemblies using the following command.
@@ -92,6 +92,9 @@ working directory.
 
     gfa1_parser efcls.gfa1 efcls
 
+> Warning! The last couple of steps will take a bit of time. Remember to
+> adjust the number of threads depending on your system resources.
+
 5.  Run SpydrPick on the unitig fasta alignment
 
 <!-- -->
@@ -103,9 +106,6 @@ working directory.
 <!-- -->
 
     unitig_distance --unitigs-file efcls.unitigs --edges-file efcls.edges --k-mer-length 61 --sgg-paths-file efcls.paths --queries-file efcls.*spydrpick_couplings*edges --threads 16 --queries-one-based --run-sggs-only --output-stem efcls --verbose
-
-> Remember to adjust the number of threads depending on your system
-> resources.
 
 7.  Generate the pangenome Manhattan Plot
 
