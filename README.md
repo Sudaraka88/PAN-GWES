@@ -4,16 +4,13 @@ PANGWES Conda Installation
 # Introduction
 
 The original PANGWES repo is located
-[here](https://github.com/jurikuronen/PANGWES). This repo provides a
-quick and easy interface for installation and testing.
+[here](https://github.com/jurikuronen/PANGWES). This *duplicate* repo
+provides a quick and easy interface for installation and testing.
 
 # Installation
 
 This package will soon be available through bioconda, in the meantime,
-you can build and install it locally using conda. Currently, this
-package works on linux and mac osx-64 systems.
-
-Please follow these steps:
+you can build and install it locally using conda:
 
 1.  If you haven’t already, first, you will need to install
     [conda](https://docs.anaconda.com/free/miniconda/miniconda-install/).
@@ -34,6 +31,8 @@ Please follow these steps:
 > Alternatively, you can click the \<\>Code button at the top right and
 > click Download ZIP. Afterwards, unzip the repo.
 
+## Linux-64 and osx-64 (Intel Macs)
+
 4.  Build the repo
 
 <!-- -->
@@ -49,6 +48,36 @@ Please follow these steps:
 
 > When prompted, enter y to confirm the installation of pangwes and
 > dependencies
+
+## ARM-64 (Macs with M series chips)
+
+[SpydrPick](https://anaconda.org/bioconda/spydrpick) and
+[Cuttlefish](https://anaconda.org/bioconda/cuttlefish) are available via
+bioconda as osx-64 dependencies. You can [create a conda environment
+that uses the osx-64
+channel](https://stackoverflow.com/questions/71515117/how-to-set-up-a-conda-osx-64-environment-on-arm-mac).
+
+4.  Create a new conda environment and change channels
+
+<!-- -->
+
+    conda create -n pangwes
+    conda activate pangwes
+    conda config --env --set subdir osx-64
+
+5.  Build the package
+
+<!-- -->
+
+    cd PAN-GWES
+    conda build -c bioconda -c conda-forge sw
+
+6.  Install the package
+
+<!-- -->
+
+
+    conda install -c bioconda -c conda-forge pangwes --use-local
 
 # Example
 
@@ -92,7 +121,7 @@ folder into your working directory.
 
     gfa1_parser efcls.gfa1 efcls
 
-> Warning! The last couple of steps will take a bit of time. Remember to
+> Warning! The next couple of steps will take a bit of time. Remember to
 > adjust the number of threads depending on your system resources.
 
 5.  Run SpydrPick on the unitig fasta alignment
