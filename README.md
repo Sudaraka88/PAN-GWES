@@ -1,6 +1,12 @@
 PANGWES Conda Installation
 ================
 
+<!-- badges: start -->
+
+![license](https://anaconda.org/bioconda/pangwes/badges/license.svg)
+![platforms](https://anaconda.org/bioconda/pangwes/badges/platforms.svg)
+<!-- badges: end -->
+
 # Introduction
 
 The original PANGWES repo is located
@@ -9,8 +15,42 @@ provides a quick and easy interface for installation and testing.
 
 # Installation
 
-This package will soon be available through bioconda, in the meantime,
-you can build and install it locally using conda:
+## Bioconda (Recommended)
+
+<!-- badges: start -->
+
+![version](https://anaconda.org/bioconda/pangwes/badges/version.svg)
+![downlads](https://anaconda.org/bioconda/pangwes/badges/downloads.svg)
+![update](https://anaconda.org/bioconda/pangwes/badges/latest_release_relative_date.svg)
+<!-- badges: end -->
+
+1.  If you haven’t already, first, you will need to install
+    [conda](https://docs.anaconda.com/free/miniconda/miniconda-install/)
+    or recommended:
+    [mamba](https://mamba.readthedocs.io/en/latest/installation/mamba-installation.html).
+
+<!-- -->
+
+    conda create -n pangwes
+    conda activate pangwes
+    mamba install -c bioconda -c conda-forge pangwes
+
+> If you only installed conda, run the last command using conda inplace
+> of mamba.
+
+If you are an ARM-64 user (Macs with M series chips), please follow
+these steps to [change your channel to
+osx-64](https://stackoverflow.com/questions/71515117/how-to-set-up-a-conda-osx-64-environment-on-arm-mac):
+
+    conda create -n pangwes
+    conda activate pangwes
+    conda config --env --set subdir osx-64
+    conda install -c bioconda -c conda-forge pangwes
+
+> It is recommended to use conda instead of mamba for the installation
+> after changing the channel.
+
+## Local Conda Installation
 
 1.  If you haven’t already, first, you will need to install
     [conda](https://docs.anaconda.com/free/miniconda/miniconda-install/).
@@ -31,7 +71,7 @@ you can build and install it locally using conda:
 > Alternatively, you can click the \<\>Code button at the top right and
 > click Download ZIP. Afterwards, unzip the repo.
 
-## Linux-64 and osx-64 (Intel Macs)
+### Linux-64 and osx-64 (Intel Macs)
 
 4.  Build the repo
 
@@ -49,13 +89,14 @@ you can build and install it locally using conda:
 > When prompted, enter y to confirm the installation of pangwes and
 > dependencies
 
-## ARM-64 (Macs with M series chips)
+### ARM-64 (Macs with M series chips)
 
 [SpydrPick](https://anaconda.org/bioconda/spydrpick) and
 [Cuttlefish](https://anaconda.org/bioconda/cuttlefish) are available via
 bioconda as osx-64 dependencies. You can [create a conda environment
 that uses the osx-64
 channel](https://stackoverflow.com/questions/71515117/how-to-set-up-a-conda-osx-64-environment-on-arm-mac).
+Follow steps 1-3 first, then:
 
 4.  Create a new conda environment and change channels
 
@@ -78,6 +119,11 @@ channel](https://stackoverflow.com/questions/71515117/how-to-set-up-a-conda-osx-
 
 
     conda install -c bioconda -c conda-forge pangwes --use-local
+
+## Make and Install
+
+Please refer to the original
+[repo](https://github.com/jurikuronen/PANGWES)
 
 # Example
 
