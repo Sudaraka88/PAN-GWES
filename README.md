@@ -1,4 +1,4 @@
-PANGWES Conda Installation
+PAN-GWES (with Conda installation)
 ================
 
 <!-- badges: start -->
@@ -9,7 +9,7 @@ PANGWES Conda Installation
 
 # Introduction
 
-The original PANGWES repo is located
+The original PAN-GWES repo is located
 [here](https://github.com/jurikuronen/PANGWES). This *duplicate* repo
 provides a quick and easy interface for installation and testing.
 
@@ -35,8 +35,8 @@ provides a quick and easy interface for installation and testing.
     conda activate pangwes
     mamba install -c bioconda -c conda-forge pangwes
 
-> If you only installed conda, run the last command using conda inplace
-> of mamba.
+> If you installed conda, run the last command using conda inplace of
+> mamba.
 
 If you are an ARM-64 user (Macs with M series chips), please follow
 these steps to [change your channel to
@@ -47,8 +47,8 @@ osx-64](https://stackoverflow.com/questions/71515117/how-to-set-up-a-conda-osx-6
     conda config --env --set subdir osx-64
     conda install -c bioconda -c conda-forge pangwes
 
-> It is recommended to use conda instead of mamba for the installation
-> after changing the channel.
+> It is recommended to use the conda command (instead of mamba) for
+> installation after channel change.
 
 ## Local Conda Installation
 
