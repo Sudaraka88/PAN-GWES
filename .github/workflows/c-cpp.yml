@@ -14,13 +14,16 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: make
+    - name: make pan-gwes
       working-directory: ./sw/pangwes
       run: make
 
+    - name: Install apt-get deps
+      run: |
+        sudo apt-get update && sudo apt-get install -y build-essential wget zlib1g-dev libncurses5-dev libbz2-dev liblzma-dev libboost-all-dev intel-tbb-2021.5-1.738
+
     - name: Build and Install cuttlefish
       run: |
-        sudo apt-get update && sudo apt-get install -y build-essential wget zlib1g-dev libncurses5-dev libbz2-dev liblzma-dev
         wget https://github.com/COMBINE-lab/cuttlefish/archive/refs/tags/v2.2.0.tar.gz
         tar -xvzf v2.2.0.tar.gz
         cd cuttlefish-2.2.0
@@ -28,7 +31,9 @@ jobs:
         cmake -DCMAKE_INSTALL_PREFIX=../ ..
         make -j 8 install
         cd ..
-        ls -lRh
+        # ls -lRh
+        sudo cp bin/cuttlefish /usr/local/bin/
+        cuttlefish version
 
     - name: Build and Install SpydrPick
       run: |
@@ -41,5 +46,10 @@ jobs:
         cd ..
         ls -lRh
 
+    - name: Download test data
+      run: |
+        wget https://raw.githubusercontent.com/Sudaraka88/PAN-GWES_testdata/main/efcls_assemblies_subset.tar.gz
+        tar -xvzf efcls_assemblies_subset.tar.gz
+        ls -lRh
 
         
