@@ -13,14 +13,34 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    
-    - name: make pan-gwes
-      working-directory: ./sw/pangwes
-      run: make
 
+    - name: Download test data
+      run: |
+        wget https://raw.githubusercontent.com/Sudaraka88/PAN-GWES_testdata/main/efcls_assemblies_subset.tar.gz
+        tar -xvzf efcls_assemblies_subset.tar.gz
+        ls -lRh
+    
     - name: Install apt-get deps
       run: |
         sudo apt-get update && sudo apt-get install -y build-essential wget zlib1g-dev libncurses5-dev libbz2-dev liblzma-dev libboost-all-dev libtbb-dev
+
+    - name: Download Spydrpick+apegrunt and set up paths 
+      run: |
+        wget https://github.com/santeripuranen/apegrunt/archive/refs/tags/v0.5.0.tar.gz
+        tar -xvzf v0.5.0.tar.gz
+        wget https://github.com/santeripuranen/SpydrPick/archive/refs/tags/v1.3.0.tar.gz
+        tar -xvzf v1.3.0.tar.gz
+        mv apegrunt-0.5.0 SpydrPick-1.3.0/externals
+    
+    - name: Build and Install SpydrPick
+      run: |
+        
+        cd SpydrPick-1.3.0
+        mkdir build && cd build/
+        cmake ..
+        make SpydrPick
+        cd ..
+        ls -lRh
 
     - name: Build and Install cuttlefish
       run: |
@@ -35,21 +55,8 @@ jobs:
         sudo cp bin/cuttlefish /usr/local/bin/
         cuttlefish version
 
-    - name: Build and Install SpydrPick
-      run: |
-        wget https://github.com/santeripuranen/SpydrPick/archive/refs/tags/v1.3.0.tar.gz
-        tar -xvzf v1.3.0.tar.gz
-        cd SpydrPick-1.3.0
-        mkdir build && cd build/
-        cmake ..
-        make SpydrPick
-        cd ..
-        ls -lRh
-
-    - name: Download test data
-      run: |
-        wget https://raw.githubusercontent.com/Sudaraka88/PAN-GWES_testdata/main/efcls_assemblies_subset.tar.gz
-        tar -xvzf efcls_assemblies_subset.tar.gz
-        ls -lRh
+    - name: Build pan-gwes
+      working-directory: ./sw/pangwes
+      run: make
 
         
