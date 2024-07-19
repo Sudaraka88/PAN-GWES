@@ -34,6 +34,7 @@ jobs:
         head src/CMakeLists.txt
         mkdir build && cd build/
         cmake ..
+        ls -lRh
         make SpydrPick
         cd ..
         ls -lRh
