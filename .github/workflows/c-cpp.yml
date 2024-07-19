@@ -25,6 +25,7 @@ jobs:
 
     - name: Environments
       run: |
+        conda init
         echo "conda info --envs"
         conda activate pangwes
   
