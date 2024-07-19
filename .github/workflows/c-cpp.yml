@@ -30,8 +30,10 @@ jobs:
     - name: Build and Install SpydrPick
       run: |
         cd SpydrPick-1.3.0
+        awk 'NR==1{print "CMAKE_POLICY ( SET CMP0004 OLD )"}1' src/CMakeLists.txt > src/CMakeLists.txt
+        head src/CMakeLists.txt
         mkdir build && cd build/
-        cmake -DCMAKE_POLICY_DEFAULT_CMP0004=OLD ..
+        cmake ..
         make SpydrPick
         cd ..
         ls -lRh
