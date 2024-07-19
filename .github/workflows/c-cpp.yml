@@ -20,7 +20,7 @@ jobs:
 
     - name: Install apt-get deps
       run: |
-        sudo apt-get update && sudo apt-get install -y build-essential wget zlib1g-dev libncurses5-dev libbz2-dev liblzma-dev libboost-all-dev intel-tbb-2021.5-1.738
+        sudo apt-get update && sudo apt-get install -y build-essential wget zlib1g-dev libncurses5-dev libbz2-dev liblzma-dev libboost-all-dev libtbb-dev
 
     - name: Build and Install cuttlefish
       run: |
