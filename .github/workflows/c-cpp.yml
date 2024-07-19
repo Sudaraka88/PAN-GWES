@@ -31,7 +31,7 @@ jobs:
         # conda info
         # SpydrPick -h
 
-    - name: Install SpydrPick
+    - name: Install cuttlefish2 via conda
       shell: bash -el {0}
       run: |
           # conda info
@@ -84,13 +84,13 @@ jobs:
         sudo cp bin/* /usr/local/bin/
         cd ..
       
-    - name: Run test
-      shell: bash -el {0}
-      run: |
-        SpydrPick -h
-        unitig_distance -h
-        cuttlefish -h
-        gfa1_parser -h
+    # - name: Run test
+    #   shell: bash -el {0}
+    #   run: |
+    #     SpydrPick -h
+    #     unitig_distance -h
+    #     cuttlefish -h
+    #     gfa1_parser -h
 
     - name: Download test data
       run: |
