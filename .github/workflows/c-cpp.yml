@@ -31,10 +31,10 @@ jobs:
         conda info
         SpydrPick -h
     
-    - name: SpydrPick still avialable to use
-      run: 
-        conda info
-        SpydrPick -h
+    # - name: SpydrPick still avialable to use
+    #   run: 
+    #     conda info
+    #     SpydrPick -h
 
     # - name: Download Spydrpick+apegrunt and set up paths 
     #   run: |
@@ -73,11 +73,27 @@ jobs:
       working-directory: ./sw/pangwes
       run: |
         make
-        ls -lRh
+        sudo cp bin/* /usr/local/bin/
+        cd ..
       
+    - name: Run test
+      run: |
+        SpydrPick -h
+        cuttlefish -h
+        gfa1_parser -h
+        unitig_distance -h
 
-    # - name: Download test data
-    #   run: |
-    #     wget https://raw.githubusercontent.com/Sudaraka88/PAN-GWES_testdata/main/efcls_assemblies_subset.tar.gz
-    #     tar -xvzf efcls_assemblies_subset.tar.gz
-    #     # ls -lRh
+    - name: Download test data
+      run: |
+        wget https://raw.githubusercontent.com/Sudaraka88/PAN-GWES_testdata/main/efcls_assemblies_subset.tar.gz
+        tar -xvzf efcls_assemblies_subset.tar.gz
+        # ls -lRh
+        ls -d efcls_assemblies_subset/* > efcls_assemblies.txt
+    
+    - name: Run test
+      run: |
+        cuttlefish build --list efcls_assemblies.txt --kmer-len 61 --output efcls --threads 16 -f 1
+        gfa1_parser efcls.gfa1 efcls
+        SpydrPick --alignmentfile efcls.fasta --maf-threshold 0.05 --mi-values 50000000 --threads 4 --verbose
+        unitig_distance --unitigs-file efcls.unitigs --edges-file efcls.edges --k-mer-length 61 --sgg-paths-file efcls.paths --queries-file efcls.*spydrpick_couplings*edges --threads 4 --queries-one-based --run-sggs-only --output-stem efcls --verbose
+        gwes_plot.r efcls.ud_sgg_0_based 
