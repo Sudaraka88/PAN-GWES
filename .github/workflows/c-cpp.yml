@@ -30,7 +30,11 @@ jobs:
         conda install -c bioconda -c conda-forge spydrpick
         conda info
         SpydrPick -h
-  
+    
+    - name: SpydrPick still avialable to use
+      run: 
+        conda info
+        SpydrPick -h
 
     # - name: Download Spydrpick+apegrunt and set up paths 
     #   run: |
@@ -48,29 +52,32 @@ jobs:
     #     head src/CMakeLists.txt
     #     mkdir build && cd build/
     #     cmake ..
-    #     make # SpydrPick
+    #     make # This is throwing errors from the code, trying to install from conda
     #     cd ..
     #     ls -lRh
 
-    - name: Build and Install cuttlefish
-      run: |
-        wget https://github.com/COMBINE-lab/cuttlefish/archive/refs/tags/v2.2.0.tar.gz
-        tar -xvzf v2.2.0.tar.gz
-        cd cuttlefish-2.2.0
-        mkdir build && cd build/
-        cmake -DCMAKE_INSTALL_PREFIX=../ ..
-        make -j 4 install
-        cd ..
-        # ls -lRh
-        sudo cp bin/cuttlefish /usr/local/bin/
-        cuttlefish version
+    # - name: Build and Install cuttlefish
+    #   run: |
+    #     wget https://github.com/COMBINE-lab/cuttlefish/archive/refs/tags/v2.2.0.tar.gz
+    #     tar -xvzf v2.2.0.tar.gz
+    #     cd cuttlefish-2.2.0
+    #     mkdir build && cd build/
+    #     cmake -DCMAKE_INSTALL_PREFIX=../ ..
+    #     make -j 4 install
+    #     cd ..
+    #     # ls -lRh
+    #     sudo cp bin/cuttlefish /usr/local/bin/
+    #     cuttlefish version
 
     - name: Build pan-gwes
       working-directory: ./sw/pangwes
-      run: make
-
-    - name: Download test data
       run: |
-        wget https://raw.githubusercontent.com/Sudaraka88/PAN-GWES_testdata/main/efcls_assemblies_subset.tar.gz
-        tar -xvzf efcls_assemblies_subset.tar.gz
-        # ls -lRh
+        make
+        ls -lRh
+      
+
+    # - name: Download test data
+    #   run: |
+    #     wget https://raw.githubusercontent.com/Sudaraka88/PAN-GWES_testdata/main/efcls_assemblies_subset.tar.gz
+    #     tar -xvzf efcls_assemblies_subset.tar.gz
+    #     # ls -lRh
