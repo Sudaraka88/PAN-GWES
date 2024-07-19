@@ -22,11 +22,13 @@ jobs:
       uses: conda-incubator/setup-miniconda@v3
       with:
         activate-environment: pangwes
+    - name: Conda info
+      shell: bash -el {0}
+      run: conda info
   
     - name: Install SpydrPick from Bioconda
       run: |
         conda install -c bioconda -c conda-forge spydrpick
-        shell: bash -el {0}
         conda info
         SpydrPick -h
 
