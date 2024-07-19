@@ -34,8 +34,7 @@ jobs:
         head src/CMakeLists.txt
         mkdir build && cd build/
         cmake ..
-        ls -lRh
-        make SpydrPick
+        make -j 4 install # SpydrPick
         cd ..
         ls -lRh
 
@@ -46,7 +45,7 @@ jobs:
         cd cuttlefish-2.2.0
         mkdir build && cd build/
         cmake -DCMAKE_INSTALL_PREFIX=../ ..
-        make -j 8 install
+        make -j 4 install
         cd ..
         # ls -lRh
         sudo cp bin/cuttlefish /usr/local/bin/
