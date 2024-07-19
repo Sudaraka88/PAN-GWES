@@ -30,6 +30,14 @@ jobs:
         conda install -c bioconda -c conda-forge spydrpick
         # conda info
         # SpydrPick -h
+
+    - name: Install SpydrPick
+      shell: bash -el {0}
+      run: |
+          # conda info
+          conda install -c bioconda -c conda-forge cuttlefish
+          # conda info
+          # SpydrPick -h
     
     # - name: SpydrPick still avialable to use
     #   run: 
@@ -56,7 +64,7 @@ jobs:
     #     cd ..
     #     ls -lRh
 
-    # - name: Build and Install cuttlefish
+    # - name: Build and Install cuttlefish # This works, but conda is probably a lot faster, will use that
     #   run: |
     #     wget https://github.com/COMBINE-lab/cuttlefish/archive/refs/tags/v2.2.0.tar.gz
     #     tar -xvzf v2.2.0.tar.gz
@@ -80,9 +88,9 @@ jobs:
       shell: bash -el {0}
       run: |
         SpydrPick -h
-        gfa1_parser -h
         unitig_distance -h
         cuttlefish -h
+        gfa1_parser -h
 
     - name: Download test data
       run: |
@@ -92,6 +100,7 @@ jobs:
         ls -d efcls_assemblies_subset/* > efcls_assemblies.txt
     
     - name: Run test
+      shell: bash -el {0}
       run: |
         cuttlefish build --list efcls_assemblies.txt --kmer-len 61 --output efcls --threads 16 -f 1
         gfa1_parser efcls.gfa1 efcls
