@@ -22,8 +22,7 @@ jobs:
       run: |
         sudo apt-get update && sudo apt-get install -y build-essential wget zlib1g-dev libncurses5-dev libbz2-dev liblzma-dev
         wget https://github.com/COMBINE-lab/cuttlefish/archive/refs/tags/v2.2.0.tar.gz
-        mv v2.2.0.tar.gz cuttlefish.tar.gz
-        tar -xjf cuttlefish.tar.gz
+        tar -xvzf v2.2.0.tar.gz
         cd cuttlefish-2.2.0
         mkdir build && cd build/
         cmake -DCMAKE_INSTALL_PREFIX=../ ..
