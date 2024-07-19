@@ -2,7 +2,7 @@ PAN-GWES (with Conda installation)
 ================
 
 <!-- badges: start -->
-
+[![Package Building](https://github.com/Sudaraka88/PAN-GWES/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/Sudaraka88/PAN-GWES/actions/workflows/c-cpp.yml)
 ![license](https://anaconda.org/bioconda/pangwes/badges/license.svg)
 ![platforms](https://anaconda.org/bioconda/pangwes/badges/platforms.svg)
 <!-- badges: end -->

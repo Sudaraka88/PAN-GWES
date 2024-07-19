@@ -1,4 +1,4 @@
-name: C/C++ Build
+name: Build_and_test
 
 on:
   push:
@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Set up Miniconda
+    - name: Set up Miniconda (with mamba)
       uses: conda-incubator/setup-miniconda@v3
       with:
         activate-environment: pangwes
@@ -22,24 +22,14 @@ jobs:
     - name: Install SpydrPick
       shell: bash -el {0}
       run: |
-        # conda info
-        conda install -c bioconda -c conda-forge spydrpick
-        # conda info
-        # SpydrPick -h
+        mamba install -c bioconda -c conda-forge spydrpick
 
     - name: Install cuttlefish2 via conda
       shell: bash -el {0}
       run: |
-          # conda info
-          conda install -c bioconda -c conda-forge cuttlefish
-          # conda info
-          # SpydrPick -h
+        mamba install -c bioconda -c conda-forge cuttlefish
 
-    # - name: Install apt-get deps
-    #   run: |
-    #     sudo apt-get update && sudo apt-get install -y build-essential wget zlib1g-dev libncurses5-dev libbz2-dev liblzma-dev # libboost-all-dev libtbb-dev
-
-    - name: Build pan-gwes # We avoid conda here and build to ensure the pushed changes don't break pangwes
+    - name: Build pan-gwes # We avoid conda here and build to ensure the pushed changes don't break pan-gwes
       working-directory: ./sw/pangwes
       run: |
         make
@@ -60,4 +50,3 @@ jobs:
         gfa1_parser efcls.gfa1 efcls
         SpydrPick --alignmentfile efcls.fasta --maf-threshold 0.05 --mi-values 50000000 --threads 4 --verbose
         unitig_distance --unitigs-file efcls.unitigs --edges-file efcls.edges --k-mer-length 61 --sgg-paths-file efcls.paths --queries-file efcls.*spydrpick_couplings*edges --threads 4 --queries-one-based --run-sggs-only --output-stem efcls --verbose
-        gwes_plot.r efcls.ud_sgg_0_based 
