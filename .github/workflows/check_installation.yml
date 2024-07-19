@@ -1,0 +1,35 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+    - uses: actions/checkout@v4
+    
+    - name: Set up Conda
+    - uses: conda-incubator/setup-miniconda@v3
+      with:
+        python-version: 3.6
+        mamba-version: "*"
+        channels: conda-forge,bioconda
+        channel-priority: true
+        activate-environment: pangwes
+        environment-file: sw/meta.yaml
+        auto-activate-base: false
+
+    - name: Show Conda Info
+      run: |
+          conda info
+          conda list
+          conda config --show-sources
+          conda config --show
+          printenv | sort
+        
