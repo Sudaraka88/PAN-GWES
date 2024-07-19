@@ -14,10 +14,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Install apt-get deps
-      run: |
-        sudo apt-get update && sudo apt-get install -y build-essential wget zlib1g-dev libncurses5-dev libbz2-dev liblzma-dev # libboost-all-dev libtbb-dev
-
     - name: Set up Miniconda
       uses: conda-incubator/setup-miniconda@v3
       with:
@@ -38,59 +34,17 @@ jobs:
           conda install -c bioconda -c conda-forge cuttlefish
           # conda info
           # SpydrPick -h
-    
-    # - name: SpydrPick still avialable to use
-    #   run: 
-    #     conda info
-    #     SpydrPick -h
 
-    # - name: Download Spydrpick+apegrunt and set up paths 
+    # - name: Install apt-get deps
     #   run: |
-    #     wget https://github.com/santeripuranen/apegrunt/archive/refs/tags/v0.5.0.tar.gz
-    #     tar -xvzf v0.5.0.tar.gz
-    #     wget https://github.com/santeripuranen/SpydrPick/archive/refs/tags/v1.3.0.tar.gz
-    #     tar -xvzf v1.3.0.tar.gz
-    #     mv apegrunt-0.5.0/* SpydrPick-1.3.0/externals/apegrunt
-    #     ls -lRh SpydrPick-1.3.0
-    
-    # - name: Build and Install SpydrPick
-    #   run: |
-    #     cd SpydrPick-1.3.0
-    #     awk 'NR==1{print "CMAKE_POLICY ( SET CMP0004 OLD )"}1' src/CMakeLists.txt > src/CMakeLists.txt
-    #     head src/CMakeLists.txt
-    #     mkdir build && cd build/
-    #     cmake ..
-    #     make # This is throwing errors from the code, trying to install from conda
-    #     cd ..
-    #     ls -lRh
+    #     sudo apt-get update && sudo apt-get install -y build-essential wget zlib1g-dev libncurses5-dev libbz2-dev liblzma-dev # libboost-all-dev libtbb-dev
 
-    # - name: Build and Install cuttlefish # This works, but conda is probably a lot faster, will use that
-    #   run: |
-    #     wget https://github.com/COMBINE-lab/cuttlefish/archive/refs/tags/v2.2.0.tar.gz
-    #     tar -xvzf v2.2.0.tar.gz
-    #     cd cuttlefish-2.2.0
-    #     mkdir build && cd build/
-    #     cmake -DCMAKE_INSTALL_PREFIX=../ ..
-    #     make -j 4 install
-    #     cd ..
-    #     # ls -lRh
-    #     sudo cp bin/cuttlefish /usr/local/bin/
-    #     cuttlefish version
-
-    - name: Build pan-gwes
+    - name: Build pan-gwes # We avoid conda here and build to ensure the pushed changes don't break pangwes
       working-directory: ./sw/pangwes
       run: |
         make
         sudo cp bin/* /usr/local/bin/
         cd ..
-      
-    # - name: Run test
-    #   shell: bash -el {0}
-    #   run: |
-    #     SpydrPick -h
-    #     unitig_distance -h
-    #     cuttlefish -h
-    #     gfa1_parser -h
 
     - name: Download test data
       run: |
@@ -102,7 +56,7 @@ jobs:
     - name: Run test
       shell: bash -el {0}
       run: |
-        cuttlefish build --list efcls_assemblies.txt --kmer-len 61 --output efcls --threads 16 -f 1
+        cuttlefish build --list efcls_assemblies.txt --kmer-len 61 --output efcls --threads 4 -f 1
         gfa1_parser efcls.gfa1 efcls
         SpydrPick --alignmentfile efcls.fasta --maf-threshold 0.05 --mi-values 50000000 --threads 4 --verbose
         unitig_distance --unitigs-file efcls.unitigs --edges-file efcls.edges --k-mer-length 61 --sgg-paths-file efcls.paths --queries-file efcls.*spydrpick_couplings*edges --threads 4 --queries-one-based --run-sggs-only --output-stem efcls --verbose
