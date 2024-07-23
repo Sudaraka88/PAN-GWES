@@ -189,4 +189,4 @@ folder into your working directory.
     gwes_plot.r efcls.ud_sgg_0_based 
 
 If all went to plan, this example should generate the following figure:
-![](supp/gwes_plot.png)
+![](sw/pangwes/scripts/pg_fast.png)
