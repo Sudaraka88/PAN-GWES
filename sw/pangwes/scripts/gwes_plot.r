@@ -54,7 +54,7 @@ parse_args <- function() {
   
   return(options)
 }
-# parse the 9 column input (hopefully there are not other versions)
+# parse the 9 column input (hopefully there are no other versions)
 parse_input <- function(input) {
   cat("Parsing input...\n")
   # The input must have these 9 columns
@@ -96,21 +96,17 @@ parse_input <- function(input) {
   return(list(filtered_data = filtered_data, n_K_disconnected = n_K_disconnected, n_K_connected = n_K_connected,
               outlier_thresh = outlier_thresh, extreme_outlier_thresh = extreme_outlier_thresh))
 }
+
 # Check and install packages
 check_and_install_packages <- function(packages) {
   for (pkg in packages) {
     if (!require(pkg, character.only = TRUE)) {
-      cat(paste("Package", pkg, "is not installed.\n"))
-      answer <- readline(prompt = "Do you want to install it? (yes/no): ")
-      if (tolower(answer) %in% c("yes", "y")) {
-        install.packages(pkg, repos = "http://cran.us.r-project.org")
-        library(pkg, character.only = TRUE)
-      } else {
-        stop(paste("Package", pkg, "is required. Exiting script."))
-      }
+      cat(paste("Package", pkg, "is not installed. Installing now...\n"))
+      install.packages(pkg, repos = "http://cran.us.r-project.org")
     }
   }
 }
+
 # Parse the command-line options
 opts <- parse_args()
 
@@ -139,7 +135,7 @@ cat("Number of assemblies:", num_assemblies, "\n")
 ## Let's install the packages 
 if(!basic_plot_only){
   # List of required packages
-  required_packages <- c("data.table", "ggplot2", "ggrastr", "ggthemes")
+  required_packages <- c("data.table", "ggplot2", "ggrastr", "ggthemes", "hexbin")
   # Check and install required packages
   check_and_install_packages(required_packages)
 }
@@ -183,7 +179,7 @@ if(basic_plot_only){
   plot_height <- 1080
   plot_pointsize <- 16
   
- 
+  
   plot_symbol <- 19 # 19 - solid circle.
   cex_direct <- 0.2
   cex_indirect <- 0.1
