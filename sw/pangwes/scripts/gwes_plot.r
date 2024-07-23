@@ -150,6 +150,7 @@ if(basic_plot_only){
   library(ggplot2)
   library(ggrastr)
   library(ggthemes)
+  library(hexbin)
   input <- data.table::fread(input_path, header = FALSE, sep = " ") # May take a few minutes.
 }
 time_reading_end <- proc.time()
@@ -173,12 +174,10 @@ color_indirect <- rgb(192, 192, 192, maxColorValue = 255)
 
 ## Generate plot
 cat("Generating plot... \n")
+time_plotting_start <- proc.time()
 if(basic_plot_only){
   # Fixed parameters
-  plot_width <- 1920
-  plot_height <- 1080
   plot_pointsize <- 16
-  
   
   plot_symbol <- 19 # 19 - solid circle.
   cex_direct <- 0.2
@@ -190,8 +189,7 @@ if(basic_plot_only){
   max_mi <- max(connected[, 5], na.rm = TRUE)
   max_distance <- max(connected[, 3], na.rm = TRUE)
   exponent <- round(log10(max_distance)) - 1
-  
-  time_plotting_start <- proc.time()
+
   png(output_path, width = plot_width, height = plot_height, pointsize = plot_pointsize)
   plot(connected[!connected[, 4], 3], connected[!connected[, 4], 5], col = color_indirect, type = "p", pch = plot_symbol, cex = cex_indirect,
        xlim = c(0, max_distance), ylim = c(min_mi, max_mi), xaxs = "i", yaxs = "i",
@@ -227,8 +225,7 @@ if(basic_plot_only){
   dev.off()
   
 } else {
-  
-  time_plotting_start <- proc.time()
+
   p1 = ggplot() + #(filtered_data, aes(x=V3, y=V5)) +
     ggrastr::rasterise( geom_hex(data = connected[which(connected$ARACNE != 1), ], aes(x = sep, y = MI), bins=500, fill="#c0c0c0"), dpi=1000) +
     ggrastr::rasterise( geom_hex(data = connected[which(connected$ARACNE == 1), ], aes(x = sep, y = MI), bins=500, fill="#3182bd"), dpi=1000) +
@@ -247,4 +244,4 @@ if(basic_plot_only){
 
 time_plotting_end <- proc.time()
 time_plotting <- (time_plotting_end - time_plotting_start)[[3]]
-cat(paste0("All done! Time plotting: ", time_plotting, "s\n"))
+cat(paste0("All done! Plotting time: ", time_plotting, "s\n"))

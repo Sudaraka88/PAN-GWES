@@ -191,7 +191,10 @@ folder into your working directory.
 
 <!-- -->
 
-    gwes_plot.r efcls.ud_sgg_0_based 
+    ./gwes_plot.r -i efcls.ud_sgg_0_based -n 337
+
+> Warning! This script will try to install the required dependencies. Use 
+> --no-deps to generate the plot without installing any packages (slower!).
 
 If all went to plan, this example should generate the following figure:
 ![](sw/pangwes/scripts/pg_fast.png)
